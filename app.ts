@@ -17,9 +17,10 @@ export const createExpressApplication = (
 
     app.use(bodyParser.json());
     app.use(controller);
-    app.listen(config.PORT, () => {
+    const server = app.listen(config.PORT, () => {
         console.log(`App is litnening on port: ${config.PORT}`);
     });
+    return { app, server };
 };
 
 export const createApp = async () => {
@@ -27,4 +28,5 @@ export const createApp = async () => {
     const services = new TradeService(config);
     const controller = createTradeController(services);
     const app = createExpressApplication(config, controller);
+    return app;
 };

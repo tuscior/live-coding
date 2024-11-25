@@ -34,13 +34,12 @@ const getTrades = (tradeService: TradeService) => async (req: Request, res: Resp
         return;
     } catch(err) {
         if(err instanceof BinanceValidationError) {
-            res.status(404).json({ message: CLIENT_VALIDATION_ERROR });
+            res.status(400).json({ message: CLIENT_VALIDATION_ERROR });
             return;
         }
         res.status(500).json({ message: SOMETHING_WENT_WRONG });
         return;
     }
-    
 }
 
 export const createTradeController = (service: TradeService): Router => {

@@ -1,10 +1,37 @@
+
+
+# Project Title
+
+Trading app
+
+## Description
+
+Simple trading app to help understand price changes overtime
+
+## Getting Started
+
+Run `yarn install` to add dependencies
+
 Run `yarn dev` to start a server
-Server will start on PORT `3000` by default. You can change it in `./utils/config`
+
+Run `yarn test` to run simple test suite;
+
+### Executing program
+
+* Server will start on PORT `3000` by default. You can change it in `./utils/config`
 There is one available endpoint and it is:
 `http://localhost:3000/trades/BTCUSDT?from=1732527724369&to=1732527724369`
 BTCUSDT is symbol of cryptocurrency from binance
 From and to query properties are mandatory and are used to filter data from binance API;
 
+## Authors
 
-Run `yarn test` to run simple test suite;
+Contributors names and contact info: tuscior
 
+## Version History
+
+* 0.1 -> Initial version
+
+## License
+
+This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
