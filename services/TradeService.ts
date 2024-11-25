@@ -1,21 +1,14 @@
 import { AppConfig } from "../utils/config";
 import fetch from 'node-fetch';
 import { BinanceValidationError } from "../utils/error";
-import { TradeBinanceDTO, Trade } from "../interfaces/TradeBinanceResponse";
-
-interface Analysis {
-    firstTrade: Trade,
-    lastTrade: Trade,
-    analysis: {
-        difference: number
-    }
-}
+import { TradeBinanceDTO } from "../interfaces/TradeBinanceResponse";
+import { IAnalysis, ITrade } from "../interfaces/TradeApp";
 
 export class TradeService {
     constructor(private config: AppConfig){
 
     }
-    private mapToTradeReadable = (trades: TradeBinanceDTO[]): Trade[] => {
+    private mapToTradeReadable = (trades: TradeBinanceDTO[]): ITrade[] => {
         return trades.map(trade => ({
             id: trade.a,
             price: trade.p,
@@ -24,11 +17,11 @@ export class TradeService {
         }))
     }
 
-    private analyzeData = (trades: Trade[]) => {
+    private analyzeData = (trades: ITrade[]) => {
         const sortedByTimestamp = trades.sort((tradeA, tradeB) => tradeA.timestamp > tradeB.timestamp ? 1 : -1);
         const firstTrade = sortedByTimestamp[0];
         const lastTrade = sortedByTimestamp[sortedByTimestamp.length - 1];
-        const diff = +(+lastTrade.price - +firstTrade.price).toFixed(4)
+        const diff = +(+lastTrade.price - +firstTrade.price).toFixed(4);
         return {
             firstTrade,
             lastTrade,
@@ -49,7 +42,7 @@ export class TradeService {
         return trades
     }
     // Fetch historical market data for a specific cryptocurrency symbol and time range using the API. 
-    async getTrades(symbol: string, from: number, to: number): Promise<Analysis>{
+    async getTrades(symbol: string, from: number, to: number): Promise<IAnalysis>{
         const binanceTrades = await this.getTradesFromBinance(symbol, from, to)
         const withAnalysis = this.analyzeData(this.mapToTradeReadable(binanceTrades));
         return withAnalysis;
