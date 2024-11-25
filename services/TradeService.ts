@@ -7,8 +7,10 @@ export class TradeService {
 
     }
     // Fetch historical market data for a specific cryptocurrency symbol and time range using the API. 
-    async getTrades(symbol: string){
-        const data = await fetch(`${this.config.BINANCE_URL}?symbol=${symbol}`);
+    async getTrades(symbol: string, from: number, to: number){
+        const url = `${this.config.BINANCE_URL}?symbol=${symbol}&from=${from}&to=${to}`
+        console.log(url)
+        const data = await fetch(url);
         if(data.status === 400){
             throw new BinanceValidationError()
         }
