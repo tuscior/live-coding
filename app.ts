@@ -5,7 +5,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import { AppConfig, createAppConfig } from "./utils/config";
 import { TradeService } from "./services/TradeService";
-import rateLimit from 'express-rate-limit'
+import rateLimit from "express-rate-limit";
 
 export const createExpressApplication = (
     config: AppConfig,
@@ -16,14 +16,13 @@ export const createExpressApplication = (
     app.use(cors());
     app.use(bodyParser.urlencoded({ extended: false }));
 
-
     const limiter = rateLimit({
         windowMs: 60 * 1000, // 1 minute
-        limit: 1200, // Limit each IP to 1200 requests per `window` (here, per 1 minutes).
-    })
-    
+        limit: 1200 // Limit each IP to 1200 requests per `window` (here, per 1 minutes).
+    });
+
     // Apply the rate limiting middleware to all requests.
-    app.use(limiter)
+    app.use(limiter);
 
     app.use(bodyParser.json());
     app.use(controller);
