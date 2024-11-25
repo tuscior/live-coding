@@ -29,11 +29,13 @@ export class TradeService {
         const sortedByTimestamp = trades.sort((tradeA, tradeB) => tradeA.timestamp > tradeB.timestamp ? 1 : -1);
         const firstTrade = sortedByTimestamp[0];
         const lastTrade = sortedByTimestamp[sortedByTimestamp.length - 1];
+        const diff = +(+lastTrade.price - +firstTrade.price).toFixed(4)
         return {
             firstTrade,
             lastTrade,
             analysis: {
-                difference: 0,
+                difference: diff,
+                meaning: `Last trade was ${diff} more expensive than a first trade`
             }
         }
     }
