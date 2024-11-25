@@ -1,0 +1,10 @@
+Run `yarn dev` to start a server
+Server will start on PORT `3000` by default. You can change it in `./utils/config`
+There is one available endpoint and it is:
+`http://localhost:3000/trades/BTCUSDT?from=1732527724369&to=1732527724369`
+BTCUSDT is symbol of cryptocurrency from binance
+From and to query properties are mandatory and are used to filter data from binance API;
+
+
+Run `yarn test` to run simple test suite;
+

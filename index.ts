@@ -1,10 +1,10 @@
-import { createApp } from './app';
+import { createApp } from "./app";
 
 const main = async () => {
     await createApp();
-}
+};
 
-main().catch(err => {
+main().catch((err) => {
     console.log(err);
-    process.exit(1)
-})
+    process.exit(1);
+});

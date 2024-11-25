@@ -4,7 +4,6 @@ import { binanceResponse } from "./mocks/BinanceResponse";
 
 const binanceResponseJestFn = jest.fn(() => binanceResponse())
 
-
 describe('TradeService', () =>{
     const tradeServiceMock = new TradeService({ PORT: 0, BINANCE_URL: '' });
     tradeServiceMock.getTradesFromBinance = binanceResponseJestFn;
