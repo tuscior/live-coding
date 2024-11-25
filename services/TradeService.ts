@@ -15,7 +15,6 @@ export class TradeService {
     constructor(private config: AppConfig){
 
     }
-
     private mapToTradeReadable = (trades: TradeBinanceDTO[]): Trade[] => {
         return trades.map(trade => ({
             id: trade.a,
@@ -39,15 +38,20 @@ export class TradeService {
             }
         }
     }
-    // Fetch historical market data for a specific cryptocurrency symbol and time range using the API. 
-    async getTrades(symbol: string, from: number, to: number): Promise<Analysis>{
+
+    async getTradesFromBinance(symbol: string, from: number, to: number): Promise<TradeBinanceDTO[]> {
         const url = `${this.config.BINANCE_URL}?symbol=${symbol}&startTime=${from}&endTime=${to}`
         const data = await fetch(url);
         if(data.status === 400){
             throw new BinanceValidationError()
         }
         const trades: TradeBinanceDTO[] = await data.json();
-        const withAnalysis = this.analyzeData(this.mapToTradeReadable(trades));
+        return trades
+    }
+    // Fetch historical market data for a specific cryptocurrency symbol and time range using the API. 
+    async getTrades(symbol: string, from: number, to: number): Promise<Analysis>{
+        const binanceTrades = await this.getTradesFromBinance(symbol, from, to)
+        const withAnalysis = this.analyzeData(this.mapToTradeReadable(binanceTrades));
         return withAnalysis;
     }
 }
