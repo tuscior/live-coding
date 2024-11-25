@@ -4,6 +4,7 @@ const main = async () => {
     await createApp();
 }
 
-main().then(() => {}).catch(err => {
+main().catch(err => {
+    console.log(err);
     process.exit(1)
 })

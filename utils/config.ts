@@ -19,7 +19,7 @@ const num = (num: string | undefined, fallback: number) => {
 export const createAppConfig = () => {
     return {
         PORT: num(process.env.PORT, 3000),
-        BINANCE_URL: str(process.env.BINANCE_URL, '')
+        BINANCE_URL: str(process.env.BINANCE_URL, 'https://api.binance.com/api/v3/trades')
     }
 }
 
