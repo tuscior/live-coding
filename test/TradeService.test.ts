@@ -16,6 +16,8 @@ describe('TradeService', () =>{
             to: 1732527724369
         }
         const trades = await tradeServiceMock.getTrades(params.symbol, params.from, params.to);
-        expect(binanceResponseJestFn).toHaveBeenCalled()
+        expect(binanceResponseJestFn).toHaveBeenCalledTimes(1)
+        expect(trades).toHaveProperty('analysis');
+        expect(trades.analysis.difference).toEqual(-1.11)
     })
 })
