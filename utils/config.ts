@@ -1,3 +1,10 @@
+const str = (str: string | undefined, fallback: string) => {
+    if(str?.trim()){
+        return str?.trim();
+    }
+    return fallback;
+}
+
 const num = (num: string | undefined, fallback: number) => {
     if(num){
         try {
@@ -12,6 +19,7 @@ const num = (num: string | undefined, fallback: number) => {
 export const createAppConfig = () => {
     return {
         PORT: num(process.env.PORT, 3000),
+        BINANCE_URL: str(process.env.BINANCE_URL, '')
     }
 }
 
