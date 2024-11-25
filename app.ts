@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 import { AppConfig, createAppConfig } from "./utils/config";
 import { TradeService } from "./services/TradeService";
 import rateLimit from "express-rate-limit";
+import { PATH_DOES_NOT_EXISTS } from "./utils/error";
 
 export const createExpressApplication = (
     config: AppConfig,
@@ -26,6 +27,9 @@ export const createExpressApplication = (
 
     app.use(bodyParser.json());
     app.use(controller);
+    app.use((req, res, next)=>{
+        res.status(404).json({ message: PATH_DOES_NOT_EXISTS });
+    })
     const server = app.listen(config.PORT, () => {
         console.log(`App is litnening on port: ${config.PORT}`);
     });

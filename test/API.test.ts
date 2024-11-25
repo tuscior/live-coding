@@ -3,7 +3,7 @@ import { createTradeController } from "../controllers/TradeController";
 import { TradeService } from "../services/TradeService";
 import { createAppConfig } from "../utils/config";
 import request from 'supertest'
-import { CLIENT_VALIDATION_ERROR } from "../utils/error";
+import { CLIENT_VALIDATION_ERROR, PATH_DOES_NOT_EXISTS } from "../utils/error";
 
 
 describe('GET /trades', function () {
@@ -64,6 +64,16 @@ describe('GET /trades', function () {
             .expect(400)
             .then(response => {
                 expect(response.body.message).toEqual(CLIENT_VALIDATION_ERROR);
+            })
+    });
+    it('should fallback to 404 when route is not registered', function () {
+        return request(app)
+            .get('/example/BTCUSDT?from=fdsfsdfs&to=1732527724369')
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(404)
+            .then(response => {
+                expect(response.body.message).toEqual(PATH_DOES_NOT_EXISTS);
             })
     });
 });
