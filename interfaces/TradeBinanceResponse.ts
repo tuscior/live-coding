@@ -8,3 +8,11 @@
     m: boolean, // was the buyer maker ?
     M: boolean // was the trade the best price match ?
   }
+
+
+  export interface Trade {
+    id: number,
+    price: string,
+    quantity: string,
+    timestamp: number
+  }
