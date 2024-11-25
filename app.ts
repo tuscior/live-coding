@@ -27,7 +27,7 @@ export const createExpressApplication = (
 
     app.use(bodyParser.json());
     app.use(controller);
-    app.use((req, res, next)=>{
+    app.use((_, res) => {
         res.status(404).json({ message: PATH_DOES_NOT_EXISTS });
     })
     const server = app.listen(config.PORT, () => {

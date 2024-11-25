@@ -10,9 +10,3 @@
   }
 
 
-  export interface Trade {
-    id: number,
-    price: string,
-    quantity: string,
-    timestamp: number
-  }
