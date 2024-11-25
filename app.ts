@@ -25,5 +25,4 @@ export const createApp = async () => {
     const services = new TradeService(config)
     const controller = createTradeController(services);
     const app = createExpressApplication(config, controller)
-
 }
